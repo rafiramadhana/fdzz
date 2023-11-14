@@ -4,6 +4,7 @@ import (
 	"context"
 	"fdzz/infrastructure"
 	"fdzz/model"
+	"log"
 )
 
 type BookStore struct {
@@ -21,7 +22,12 @@ func (bs *BookStore) Create(ctx context.Context, book model.Book) (model.Book, e
 }
 
 func (bs *BookStore) Read(ctx context.Context) ([]model.Book, error) {
-	return bs.db.Read(ctx)
+	b, err := bs.db.Read(ctx)
+	if err != nil {
+		log.Println("Fail to read: ", err)
+	}
+
+	return b, err
 }
 
 func (bs *BookStore) Update(ctx context.Context, id string, book model.Book) (model.Book, error) {

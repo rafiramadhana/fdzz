@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fdzz/infrastructure/inmemory"
+	"fdzz/infrastructure/sqlite"
 	"fdzz/usecase"
 	"log"
 	"net/http"
@@ -12,8 +12,9 @@ import (
 func main() {
 	app := fiber.New()
 
-	inmem := inmemory.NewDB()
-	uc := usecase.NewBookStore(inmem)
+	// im := inmemory.NewDB()
+	sq := sqlite.NewDB()
+	uc := usecase.NewBookStore(sq)
 
 	app.Post("/books", nil)
 
